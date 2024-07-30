@@ -5,7 +5,7 @@ from .models import Photo
 class PhotoSerializer(ModelSerializer):
 
     class Meta:
-        model: Photo
+        model = Photo
         fields = (
             "pk",
             "file",
