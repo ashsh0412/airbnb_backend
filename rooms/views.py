@@ -10,7 +10,6 @@ from rest_framework.exceptions import (
 )
 from rest_framework.status import (
     HTTP_204_NO_CONTENT,
-    HTTP_203_NON_AUTHORITATIVE_INFORMATION,
 )
 from categories.models import Category
 from django.db import transaction
@@ -18,7 +17,7 @@ from reviews.serializers import ReviewSerializer
 from medias.serializers import PhotoSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from bookings.models import Booking
-from bookings.serializers import PublicBookingSerializer
+from bookings.serializers import PublicBookingSerializer, CreateRoomBookingSerializer
 from django.utils import timezone
 
 
@@ -294,8 +293,14 @@ class RoomBookings(APIView):
 
     def post(self, request, pk):
         room = self.get_object(pk)
-        serializer = PublicBookingSerializer(data=request.data)
+        serializer = CreateRoomBookingSerializer(data=request.data)
         if serializer.is_valid():
-            pass
+            booking = serializer.save(
+                room=room,
+                user=request.user,
+                kind=Booking.BookingKindChoices.ROOM,
+            )
+            serializer = PublicBookingSerializer(booking)
+            return Response(serializer.data)
         else:
-            return Response(serializer.error_messages)
+            return Response(serializer.errors)
