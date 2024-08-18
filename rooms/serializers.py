@@ -52,7 +52,6 @@ class RoomListSerializer(serializers.ModelSerializer):
     rating = serializers.SerializerMethodField()
     is_owner = serializers.SerializerMethodField()
     photos = PhotoSerializer(many=True, read_only=True)
-    print(photos)
 
     class Meta:
         model = Room
