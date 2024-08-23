@@ -9,6 +9,7 @@ from rest_framework.exceptions import (
 )
 from rest_framework.status import (
     HTTP_204_NO_CONTENT,
+    HTTP_400_BAD_REQUEST,
 )
 from categories.models import Category
 from django.db import transaction
@@ -64,7 +65,10 @@ class AmenityDetail(APIView):
                 AmenitySerializer(updated_amenity).data,
             )
         else:
-            return Response(serializer.error_messages)
+            return Response(
+                serializer.errors,
+                status=HTTP_400_BAD_REQUEST,
+            )
 
     def delete(self, request, pk):
         amenity = self.get_object(pk)
