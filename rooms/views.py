@@ -113,7 +113,10 @@ class Rooms(APIView):
             except Exception:
                 raise ParseError("Amenity not found")
         else:
-            return Response(serializer.error_messages)
+            return Response(
+                serializer.error_messages,
+                status=HTTP_400_BAD_REQUEST,
+            )
 
 
 class RoomDetail(APIView):
