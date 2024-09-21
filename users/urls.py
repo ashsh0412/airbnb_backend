@@ -7,7 +7,7 @@ from .views import (
     LogIn,
     LogOut,
     JWTLogIn,
-    GithubLogin,
+    GithubLogIn,
 )
 from rest_framework.authtoken.views import obtain_auth_token
 
@@ -20,5 +20,5 @@ urlpatterns = [
     path("token_login", obtain_auth_token),
     path("jwt_login", JWTLogIn.as_view()),
     path("@<str:username>", PublicUser.as_view()),
-    path("github", GithubLogin.as_view()),
+    path("github", GithubLogIn.as_view()),
 ]
