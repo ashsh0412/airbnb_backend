@@ -25,7 +25,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("SECRET_KEY")
+SECRET_KEY = "django-insecure-pw-em&zf4-83d4ml^@r7my#6_14yb(j%d8nk#d(0^#yep=m!2o"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -159,6 +159,7 @@ MEDIA_URL = "user-uploads/"
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
+        "rest_framework.permissions.IsAdminUser",
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",
